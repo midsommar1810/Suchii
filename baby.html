@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #ffe6f2;
+            overflow: hidden; /* Prevent scrolling */
+        }
+        .container {
+            text-align: center;
+            margin-top: 50px;
+        }
+        .gif {
+            width: 200px;
+            height: 200px;
+            margin: 20px 0;
+            display: block; /* Ensure GIF is displayed */
+            margin-left: auto; /* Centering */
+            margin-right: auto; /* Centering */
+        }
+        .button {
+            font-size: 18px;
+            padding: 15px 30px;
+        }
+        #yes {
+            background-color: #28a745; /* Green color */
+            color: white;
+        }
+        #no {
+            background-color: #dc3545; /* Red color */
+            color: white;
+            padding: 10px 20px; /* Default padding */
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px; /* Spacing between buttons */
+        }
+        /* Heart background */
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: red;
+            border-radius: 50%; /* Make it round */
+            transform: rotate(-45deg);
+            animation: float linear infinite; /* Default animation */
+        }
+        .heart:before, .heart:after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: red;
+            border-radius: 50%; /* Make it round */
+        }
+        .heart:before {
+            top: -10px;
+            left: 0;
+        }
+        .heart:after {
+            left: 10px;
+            top: 0;
+        }
+        @keyframes float {
+            0% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-30px) translateX(-15px); } /* Higher rise, left */
+            50% { transform: translateY(0) translateX(15px); } /* Return to original, right */
+            75% { transform: translateY(30px) translateX(-15px); } /* Down, left */
+            100% { transform: translateY(0) translateX(0); }
+        }
+        .hidden {
+            display: none; /* Class to hide elements */
+        }
+        .centered-message {
+            text-align: center;
+            margin-top: 20px; /* Space above the message */
+        }
+        .movie-buttons {
+            margin-top: 20px; /* Space above movie buttons */
+            display: flex;
+            flex-direction: column; /* Stack buttons vertically */
+            align-items: center; /* Center the buttons */
+            gap: 10px; /* Space between buttons */
+        }
+        .movie-image {
+            width: 300px; /* Adjust image size */
+            margin: 20px auto; /* Center the image */
+            display: block;
+        }
+        .pink-button {
+            background-color: #ff69b4; /* Pink color */
+            color: white;
+        }
+
+        .image-container {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Align items vertically */
+    margin-top: 20px; /* Space above the images */
+}
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2 class="text-danger" id="valentineText">Will you come to movie with me?</h2>
+        <img class="gif" id="gif" src="https://media.giphy.com/media/3ohc13CSc01ZDbYEuI/giphy.gif" alt="Cute Valentine GIF">
+        
+        <div class="button-container">
+            <button id="yes" class="btn button">YES</button>
+            <button id="no" class="btn btn-secondary button">NO</button>
+        </div>
+    </div>
+
+    <script>
+        const yesButton = document.getElementById("yes");
+        const noButton = document.getElementById("no");
+        const gif = document.getElementById("gif");
+        const valentineText = document.getElementById("valentineText");
+
+        const messages = [
+            "NO", "Are you sure?", "Red Rose leke aaunga", 
+            "Pretty Please", "Chudi Payal launga", "What about a Butterscotch Icecream", 
+            "With Cadbury Silk Heart Blush on Top", "PLEASE BACHUUUU", "But :*(", 
+            "I am going to die", "Yep I am dead", "Tum mere bhoot se baat kar rahi ho ab", 
+            "Please babe", ":((((", "Pretty please", "Bahut saara popcorn khayenge", "and Nachos bhi", "Chalo my Suchu muchu"
+        ];
+        
+        let messageIndex = 0;
+
+        noButton.addEventListener("click", () => {
+            const currentWidth = yesButton.offsetWidth;
+            const currentHeight = yesButton.offsetHeight;
+            yesButton.style.width = `${currentWidth + 10}px`;
+            yesButton.style.height = `${currentHeight + 10}px`;
+
+            messageIndex = (messageIndex + 1) % messages.length;
+            noButton.textContent = messages[messageIndex];
+            noButton.style.width = 'auto';
+            noButton.style.height = 'auto';
+        });
+
+        yesButton.addEventListener("click", () => {
+    yesButton.style.display = "none";
+    noButton.style.display = "none";
+    valentineText.classList.add("hidden");
+
+    const message = document.createElement("h2");
+    message.textContent = "Woooooo I love you Suchi";
+    message.className = "text-danger centered-message";
+    document.body.appendChild(message);
+
+    // Create the container for GIF and movie image
+    const imageContainer = document.createElement("div");
+    imageContainer.className = "image-container"; // Add the flex container class
+
+    // GIF setup
+    gif.src = "https://media.tenor.com/BDP5eJeyZPQAAAAi/tkthao219-bubududu.gif";
+    gif.className = "gif";
+    imageContainer.appendChild(gif); // Append GIF to the image container
+
+    // Movie text
+    const movieText = document.createElement("h3");
+    movieText.textContent = "Konsi movie chalni hai";
+    movieText.className = "centered-message";
+    document.body.appendChild(movieText);
+
+    const movieButtonsContainer = document.createElement("div");
+    movieButtonsContainer.className = "movie-buttons";
+
+    const movies = [
+        { title: "Bhool Bhulaiya 3 without Akshay Kumar", image: "https://movieauditions.in/wp-content/uploads/2024/09/image-352.png" },
+        { title: "Singham 3 with Akshay Kumar", image: "https://www.bollywoodshaadis.com/img/article-202410282029521792000.webp" },
+        { title: "Zeher 3", image: "https://img.theweek.in/content/dam/week/week/review/movies/images/2024/10/24/venom-3-review%20(1).jpg" }
+    ];
+
+    const movieImage = document.createElement("img");
+    movieImage.className = "movie-image"; 
+    movieImage.style.display = "none"; // Initially hidden
+    imageContainer.appendChild(movieImage); // Append the movie image to the container
+
+    movies.forEach(movie => {
+        const button = document.createElement("button");
+        button.textContent = movie.title;
+        button.className = "btn pink-button button";
+        button.addEventListener("click", () => {
+            movieImage.src = movie.image; // Set movie image source
+            movieImage.alt = movie.title;
+            movieImage.style.display = "block"; // Show the movie image
+        });
+        movieButtonsContainer.appendChild(button);
+    });
+
+    document.body.appendChild(imageContainer); // Append the image container to body
+    document.body.appendChild(movieButtonsContainer);
+    createHearts();
+});
+
+
+        function createHearts() {
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement("div");
+                heart.className = "heart";
+                heart.style.left = Math.random() * window.innerWidth + "px"; // Random horizontal position
+                heart.style.animationDuration = Math.random() * 3 + 2 + "s"; // Random duration between 2s and 5s
+                document.body.appendChild(heart);
+            }
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
